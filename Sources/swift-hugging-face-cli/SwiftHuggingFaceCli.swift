@@ -20,12 +20,9 @@ struct SwiftHuggingFaceCli: AsyncParsableCommand {
     @Option(name: .shortAndLong, help: "Destination path for model")
     var destinationPath: String = "./models"
 
-    func downloadFile(client: HubClient, repo: Repo.ID, file: Git.TreeEntry, to destination: String)
+    func downloadFile(client: HubClient, repo: Repo.ID, file: Git.TreeEntry, to destination: URL)
         async throws
     {
-        let destination = FileManager.default.temporaryDirectory
-            .appendingPathComponent("model.safetensors")
-
         // Download with progress tracking
         let progress = Progress(totalUnitCount: 0)
         /*Task {
@@ -81,7 +78,7 @@ struct SwiftHuggingFaceCli: AsyncParsableCommand {
                 print("Downloading: \(file.path)")
                 let filePath = modelDirectory.appending(path: file.path)
                 try await downloadFile(
-                    client: client, repo: firstModel.id, file: file, to: filePath.absoluteString)
+                    client: client, repo: firstModel.id, file: file, to: filePath)
                 print("Ready")
             }
         }
