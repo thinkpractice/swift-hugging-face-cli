@@ -25,5 +25,23 @@ struct SwiftHuggingFaceCli: AsyncParsableCommand {
         for model in models.items {
             print("\(model.id)")
         }
+
+        guard let firstModel = models.items.first else {
+            print("No models found")
+            return
+        }
+        // Get model information
+        let model = try await client.getModel(firstModel.id)
+        print("Model: \(model.id)")
+        print("Downloads: \(model.downloads ?? 0)")
+        print("Likes: \(model.likes ?? 0)")
+
+        // Get model tags
+        do {
+            let tags = try await client.getModelTags()
+            print("Tags \(tags.map { "\($0.key):\($0.value)" }.joined(separator: ","))")
+        } catch {
+            print("Error retrieving tags:\n \(error)")
+        }
     }
 }
