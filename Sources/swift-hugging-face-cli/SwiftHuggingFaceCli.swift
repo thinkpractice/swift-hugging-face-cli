@@ -88,11 +88,11 @@ struct SwiftHuggingFaceCli: AsyncParsableCommand {
             }
         }
 
-        let datasetInfo = try await client.getDataset("julien-c/titanic-survival")
+        let datasetInfo = try await client.getDataset("ankislyakov/titanic")
         print("Dataset from: \(datasetInfo.author, default: "<Author Unavailable")")
         print("Card: \(datasetInfo.cardData, default: "<No Card>")")
 
-        let files = try await client.listFiles(in: datasetInfo.id)
+        let files = try await client.listParquetFiles(datasetInfo.id, split: "train")
         print("Files in repo: \(files)")
     }
 }
