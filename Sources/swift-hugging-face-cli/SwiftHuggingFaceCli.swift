@@ -92,7 +92,8 @@ struct SwiftHuggingFaceCli: AsyncParsableCommand {
         print("Dataset from: \(datasetInfo.author, default: "<Author Unavailable")")
         print("Card: \(datasetInfo.cardData, default: "<No Card>")")
 
-        let files = try await client.listParquetFiles(datasetInfo.id, split: "train")
+        let files = try await client.listParquetFiles(
+            datasetInfo.id, subset: "default", split: "train")
         print("Files in repo: \(files)")
     }
 }

@@ -61,7 +61,7 @@
       "location" : "https://github.com/thinkpractice/swift-huggingface.git",
       "state" : {
         "branch" : "linux_fixes",
-        "revision" : "d9258fbac7461b3eb08225668d4a760ec31f694f"
+        "revision" : "2478546ac155cbe4295ff13bbe868209875f59e7"
       }
     }
   ],
