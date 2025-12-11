@@ -17,6 +17,9 @@ struct SwiftHuggingFaceCli: AsyncParsableCommand {
     @Option(name: .shortAndLong, help: "Number of results to return")
     var numberOfResults: Int = 10
 
+    @Option(name: [.customShort("m"), .long], help: "Should the model be downloaded?")
+    var downloadModel: Bool = false
+
     @Option(name: .shortAndLong, help: "Destination path for model")
     var destinationPath: String = "./models"
 
@@ -70,17 +73,26 @@ struct SwiftHuggingFaceCli: AsyncParsableCommand {
             print("Error retrieving tags:\n \(error)")
         }
 
-        let files = try await client.listFiles(
-            in: model.id, kind: .model, revision: "main", recursive: true)
-        for file in files {
-            print(file.path)
-            if file.type == .file {
-                print("Downloading: \(file.path)")
-                let filePath = modelDirectory.appending(path: file.path)
-                try await downloadFile(
-                    client: client, repo: firstModel.id, file: file, to: filePath)
-                print("Ready")
+        if downloadModel {
+            let files = try await client.listFiles(
+                in: model.id, kind: .model, revision: "main", recursive: true)
+            for file in files {
+                print(file.path)
+                if file.type == .file {
+                    print("Downloading: \(file.path)")
+                    let filePath = modelDirectory.appending(path: file.path)
+                    try await downloadFile(
+                        client: client, repo: firstModel.id, file: file, to: filePath)
+                    print("Ready")
+                }
             }
         }
+
+        let datasetInfo = try await client.getDataset("julien-c/titanic-survival")
+        print("Dataset from: \(datasetInfo.author, default: "<Author Unavailable")")
+        print("Card: \(datasetInfo.cardData, default: "<No Card>")")
+
+        let files = try await client.listFiles(in: datasetInfo.id)
+        print("Files in repo: \(files)")
     }
 }

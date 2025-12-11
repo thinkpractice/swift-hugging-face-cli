@@ -1,5 +1,5 @@
 {
-  "originHash" : "1bab155ecca755c0e89316c24200c5292b7c0dcc37f757a7ea858e6554999a71",
+  "originHash" : "1e04b0ac0367ca183edcaca4bdb97cea5b4627138feb1cf077a36e8e997e48e0",
   "pins" : [
     {
       "identity" : "eventsource",
@@ -8,6 +8,24 @@
       "state" : {
         "revision" : "ca2a9d90cbe49e09b92f4b6ebd922c03ebea51d0",
         "version" : "1.3.0"
+      }
+    },
+    {
+      "identity" : "parquet-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/codelynx/parquet-swift.git",
+      "state" : {
+        "revision" : "d29addf46edd9d5ae6799e0afd92d3bbaeeb316b",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "snappy-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/codelynx/snappy-swift.git",
+      "state" : {
+        "revision" : "b32f2c59383feb50d6cc3ccf28e7226c82ebf6aa",
+        "version" : "1.0.1"
       }
     },
     {
